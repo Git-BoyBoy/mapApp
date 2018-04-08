@@ -8,13 +8,10 @@ var qqmapsdk;
 var firstLat = '', firstLng = '';
 Page({
      data: {
-          keyWord: '',
+          address:'',//详细地址
           weather: {},
           lats: '',
           lngs: '',
-          addList: {},
-          val: '',
-          isDisplay: false,
           nowTime: {},
           direction: '--',//指南针文字描述
           angle: '--',//度数
@@ -30,7 +27,6 @@ Page({
 
           //获取天气
           util.loadWeatherData(function (data) {
-               console.log(data)
                that.setData({
                     weather: data
                });
@@ -44,7 +40,22 @@ Page({
                     lats: lat,
                     lngs: lng
                });
+               qqmapsdk.reverseGeocoder({
+                    location: {
+                         latitude: firstLat,
+                         longitude: firstLng
+                    },
+                    success: function (res) {
+                         that.setData({
+                              address: res.result.address
+                         });
+                    },
+                    fail: function (res) {
+                         console.log(res);
+                    }
+               });
           });
+          
 
           // 罗盘Api
           var that = this;
@@ -100,78 +111,6 @@ Page({
                     nowTime: util.getFormatTime(new Date())
                })
           }, 1000);
-     },
-     //获取输入的关键词
-     keyWords: function (e) {
-          let _this = this;
-          //根据关键词输入提示
-          qqmapsdk.getSuggestion({
-               keyword: e.detail.value,
-               success: function (res) {
-                    if (res.data.length == 0) {
-                         return false;
-                    }
-                    let locLat = res.data[0].location.lat;
-                    let locLng = res.data[0].location.lng;
-                    _this.setData({
-                         isDisplay: true,
-                         lats: locLat,
-                         lngs: locLng,
-                         addList: res.data
-                    });
-                    //获取天气
-                    util.getWeather(locLat, locLng, function (data) {
-                         _this.setData({
-                              weather: data
-                         });
-                    });
-               },
-               fail: function (res) {
-                    //当输入框清空时
-                    _this.setData({
-                         lats: firstLat,
-                         lngs: firstLng,
-                         addList: {}
-                    });
-                    //获取天气
-                    util.getWeather(firstLat, firstLng, function (data) {
-                         _this.setData({
-                              weather: data
-                         });
-                    });
-               }
-          });
-     },
-     getAddress: function (e) {
-          this.setData({
-               val: e.currentTarget.dataset.address,
-               isDisplay: false
-          })
-          let _this = this;
-          //获取关键词
-          qqmapsdk.getSuggestion({
-               keyword: e.currentTarget.dataset.address,
-               success: function (res) {
-                    if (res.data.length == 0) {
-                         return false;
-                    }
-                    let getLocLat = res.data[0].location.lat;
-                    let getLocLng = res.data[0].location.lng;
-                    _this.setData({
-                         lats: getLocLat,
-                         lngs: getLocLng,
-                    });
-                    //获取天气
-                    util.getWeather(getLocLat, getLocLng, function (data) {
-                         _this.setData({
-                              weather: data
-                         });
-                    });
-               },
-               fail: function (res) {
-                    console.log(res)
-               }
-          });
      },
      // 设置页面分享
      onShareAppMessage: function () {

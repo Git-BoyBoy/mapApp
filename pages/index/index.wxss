@@ -1,32 +1,11 @@
-.TT-index{
-     display:flex;
-	padding:10px;
-	flex-wrap:wrap;
-}
-.TT-index > view {
-     width: 100%;
-}
-.TT-index > .TT-sreach{
-	font-size:14px;
-	box-sizing:border-box;
-	height:100rpx;
-	border:1px solid #dfdfdf;
-	flex:auto;
-	display:flex;
-	justify-content:center;
-	align-items:center;
-     border-radius: 20rpx;
-}
-.TT-index > .TT-sreach > input[type='text']{
-     width: 96%;
-     height:96%;
-     padding: 2%;
-     color: #999;
-}
-
 .header {
   padding: 0 30rpx;
   line-height: 1;
+  background-color: #fff;
+  width: 100%;
+  text-align: center;
+  padding:10px 0;
+  margin-top: 10px;
 }
 .title {
   font-size: 52rpx;
@@ -47,7 +26,7 @@
   color: #000000;
   display: flex;
   background-color: #fff;
-  margin: 10rpx 30rpx;
+  margin: 10rpx 0rpx;
   flex-direction: column;
 }
 .menu-item-main {
@@ -73,11 +52,16 @@
   height: 96rpx;
   transition: 400ms;
 }
-
+.address{
+     padding:0 10px;
+     margin: 30rpx 0;
+     font-size: 12px;
+     color: #888888;
+}
 #map{
      display:flex;
 	padding:0 10px;
-     margin-top: 50rpx
+     /* margin-top: 50rpx */
 }
 #map map{
      width: 100%;

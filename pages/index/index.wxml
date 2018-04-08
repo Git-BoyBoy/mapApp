@@ -1,17 +1,6 @@
-<view class='TT-index'>
-     <!--搜索-->
-     <view class='TT-sreach'>
-          <input type='text' placeholder="输入关键词" bindinput ="keyWords" value='{{val}}' />
-          <view id='TT-ul' wx:if="{{isDisplay}}">
-               <view class='TT-items' wx:for='{{addList}}' bindtap='getAddress' data-address='{{item.address}}'>{{item.address}}</view>
-          </view>
-     </view>
-     <!--搜索 END-->
-</view>
 <view class="container">  
      <view class="header">
           <view class="title">{{weather.results[0].currentCity}}</view>
-          <view class="desc">PM2.5（{{weather.results[0].pm25}}）</view>
           <!-- <view class="desc">{{weather.date}}</view> -->
      </view>
 
@@ -27,6 +16,7 @@
                          <text class="menu-item-name">
                               {{weather.results[0].weather_data[0].date}} 
                               {{weather.results[0].weather_data[0].weather}} {{weather.results[0].weather_data[0].wind}} {{weather.results[0].weather_data[0].temperature}}
+                              PM2.5（{{weather.results[0].pm25}}）
                          </text>
                     </view>
 
@@ -47,7 +37,7 @@
           </view>
      </view>
 </view>
-
+<view class='address'>地址：{{address}}</view>
 <view id="map">
      <map longitude="{{lngs}}" latitude="{{lats}}" scale="18" show-location></map>
 </view>

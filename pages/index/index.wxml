@@ -1,0 +1,55 @@
+<view class='TT-index'>
+     <!--搜索-->
+     <view class='TT-sreach'>
+          <input type='text' placeholder="输入关键词" bindinput ="keyWords" value='{{val}}' />
+          <view id='TT-ul' wx:if="{{isDisplay}}">
+               <view class='TT-items' wx:for='{{addList}}' bindtap='getAddress' data-address='{{item.address}}'>{{item.address}}</view>
+          </view>
+     </view>
+     <!--搜索 END-->
+</view>
+<view class="container">  
+     <view class="header">
+          <view class="title">{{weather.results[0].currentCity}}</view>
+          <view class="desc">PM2.5（{{weather.results[0].pm25}}）</view>
+          <!-- <view class="desc">{{weather.date}}</view> -->
+     </view>
+
+     <view class="menu-list">
+          <view class="menu-item">
+               <view class="menu-item-main">
+                    <view>
+                         <view class='menu-item-main-clock'>
+                              <text>{{nowTime.h}}</text>：
+                              <text>{{nowTime.m}}</text>：
+                              <text>{{nowTime.s}}</text>
+                         </view>
+                         <text class="menu-item-name">
+                              {{weather.results[0].weather_data[0].date}} 
+                              {{weather.results[0].weather_data[0].weather}} {{weather.results[0].weather_data[0].wind}} {{weather.results[0].weather_data[0].temperature}}
+                         </text>
+                    </view>
+
+                    <view>
+                         <view class="text">
+                              <text>{{direction}}</text>
+                              <text>{{angle}}°</text>
+                         </view>
+
+                         <view class="pic">
+                              <image src="{{compass}}" style="transform: rotate({{rotate}}deg);"></image>
+                         </view>
+                    </view>
+                    
+                    <!-- <image class="menu-item-arrow" src="{{weather.results[0].weather_data[0].dayPictureUrl}}"></image> -->
+                    
+               </view>
+          </view>
+     </view>
+</view>
+
+<view id="map">
+     <map longitude="{{lngs}}" latitude="{{lats}}" scale="18" show-location></map>
+</view>
+
+
